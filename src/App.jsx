@@ -1,35 +1,86 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import { TonConnectButton,useTonAddress } from '@tonconnect/ui-react';
+
+import { Unity, useUnityContext } from "react-unity-webgl";
+
+
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const userFriendlyAddress = useTonAddress();
+    const rawAddress = useTonAddress(false);
+  //  RegisterExternalListener("OpenMenu", this.openMenu.bind(this));
+
+
+  
+  const { unityProvider, sendMessage } = useUnityContext({
+    loaderUrl: "build/tonjtest.loader.js",
+    dataUrl: "build/tonjtest.data",
+    frameworkUrl: "build/tonjtest.framework.js",
+    codeUrl: "build/tonjtest.wasm",
+  });
+
+  function handleClickSpawnEnemies() {
+    sendMessage("react-object", "GetWallet", userFriendlyAddress);
+  }
+
+
+  
+
+  const checkUserFriendlyAddress = () => {
+    if (userFriendlyAddress === null || userFriendlyAddress === "") {
+      console.log('userFriendlyAddress jest null');
+
+
+      // Tutaj możesz umieścić kod do obsługi, gdy userFriendlyAddress jest null
+    } 
+    if (userFriendlyAddress !== null && userFriendlyAddress !== "") {
+
+      console.log('userFriendlyAddress nie jest null. Wyłączam przycisk.');
+      handleClickSpawnEnemies();
+      // Tutaj możesz umieścić kod do obsługi, gdy userFriendlyAddress nie jest null
+    }
+  };
+  const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+  };
+  
+
+  // useTonAddress();
+
+   handleClickSpawnEnemies();
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    
+    
+    <div style={containerStyle}>
+
+  
+
+{userFriendlyAddress == null || userFriendlyAddress === "" && <TonConnectButton /> }
+
+
+
+           <Unity 
+           style={{
+            width:"360px",
+            height:"640px",
+           }}
+           unityProvider={unityProvider} 
+           />
+
+   
+
+    
+
+    </div>
+  );
+  
 }
+
 
 export default App
