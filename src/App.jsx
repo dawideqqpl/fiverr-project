@@ -48,6 +48,17 @@ function App() {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
+    
+
+  };
+  
+
+  const buttonStyle = {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: '2',
   };
   
 
@@ -61,7 +72,7 @@ function App() {
 
   
 
-{userFriendlyAddress == null || userFriendlyAddress === "" && <TonConnectButton /> }
+{userFriendlyAddress == null || userFriendlyAddress === "" &&   <button style={buttonStyle}> <TonConnectButton /></button> }
 
 
 
