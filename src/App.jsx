@@ -16,10 +16,10 @@ function App() {
 
   
   const { unityProvider, sendMessage } = useUnityContext({
-    loaderUrl: "assets/tonjtest2.loader.js",
-    dataUrl: "assets/tonjtest2.data",
-    frameworkUrl: "assets/tonjtest2.framework.js",
-    codeUrl: "assets/tonjtest2.wasm",
+    loaderUrl: "assets/tonjtest3.loader.js",
+    dataUrl: "assets/tonjtest3.data",
+    frameworkUrl: "assets/tonjtest3.framework.js",
+    codeUrl: "assets/tonjtest3.wasm",
   });
 
   function handleClickSpawnEnemies() {
